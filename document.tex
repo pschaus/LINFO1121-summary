@@ -777,7 +777,6 @@ $\mathcal{O}((V+E)\log V)$
 \begin{itemize}
 	\item Calcul de tous les chemins les plus courts partant d'un noeud donné.
 	\item L'idée est de calculer tout d'abord tous les chemins de taille 1 (d'une seule arête), puis tous les chemins de taille 2, ...
-	\item L'implémentation fait 4 lignes.
 	\item Support pour les poids négatif, mais pas les cycle négatifs!
 \end{itemize}
 
@@ -795,6 +794,28 @@ fonction Bellman_Ford(G, s)
 \end{lstlisting}
 $\mathcal{O}(V^3)$
 \end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Floyd-Warshall}
+\begin{itemize}
+	\item Calcul de toutes les distances des plus courts chemins entre toutes les paires de noeuds, dans un graphe \textbf{pondéré} dirigé de $V$ noeuds
+	\item Preuve par induction sur $k$: $d[i][j]$ est la distance du plus court chemin n'empruntant que des détours dans $\{1..k-1\}$.
+\end{itemize}
+
+\begin{lstlisting}
+fonction Floyd_Warshall(G) 
+	d[i][j] = (i,j) in E ? poids(i,j), (+inf) sinon
+	pour k = 1 jusqu'a V-1 faire
+		pour i = 1 jusqu'a V-1 faire
+			pour j = 1 jusqu'a V-1 faire
+				d[i][j] = min(d[i][j],d[i][k]+d[i][i])	
+	retourner d
+\end{lstlisting}
+$\mathcal{O}(V^3)$
+\end{frame}
+
+
 
 \begin{frame}[fragile]
 \frametitle{Chemin le plus long}
