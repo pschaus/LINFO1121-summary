@@ -809,7 +809,7 @@ fonction Floyd_Warshall(G)
 	pour k = 1 jusqu'a V-1 faire
 		pour i = 1 jusqu'a V-1 faire
 			pour j = 1 jusqu'a V-1 faire
-				d[i][j] = min(d[i][j],d[i][k]+d[i][i])	
+				d[i][j] = min(d[i][j],d[i][k]+d[k][j])	
 	retourner d
 \end{lstlisting}
 $\mathcal{O}(V^3)$
