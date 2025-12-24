@@ -18,7 +18,7 @@
 
 \begin{document}
 	\author{Pierre Schaus \& Guillaume Derval}
-	\title{A quick summary of the LINFO1121 course material}
+	\title{LINFO1121: Algorithms and Data Structures — Summary}
 	%\subtitle{}
 	%\logo{}
 	%\institute{}
@@ -34,8 +34,9 @@
 \begin{frame}[t]
 \frametitle{Disclaimer \& Learning Resources}
 
-\begin{alertblock}{Warning: Not Self-Contained}
-These slides are a \textbf{summary and mnemonic aid} only. They do not contain the full course material required for the exam.
+\begin{alertblock}{}
+These slides are a \textbf{summary} only. They do not contain the full course material required for the exam.
+The codes are Java-like pseudo-codes (most of them won't compile).
 \end{alertblock}
 
 \vspace{0.3cm}
@@ -57,6 +58,11 @@ These slides are a \textbf{summary and mnemonic aid} only. They do not contain t
 \footnotesize \textit{Contributions are welcome! Submit a Pull Request at:} \\
 \url{https://github.com/pschaus/LINFO1121-summary}
 
+\vspace{0.3cm}
+\footnotesize 
+\textit{Special thanks to Gemini 3.0 Pro for assistance with formatting and the generation of Java-like pseudo-code.}
+\vspace{0.1cm}
+
 \end{frame}
 
 
@@ -71,6 +77,7 @@ These slides are a \textbf{summary and mnemonic aid} only. They do not contain t
             \item \textbf{Iterable<T>}: A collection that can be the target of a "for-each" loop. Requires method \texttt{iterator()}.
             \item \textbf{Iterator<T>}: The object that tracks the state of the traversal.
             \item \textbf{Why Inner Classes?} The iterator needs access to the private array/data of the container.
+            \item Although \textit{delete} method is part of the \textit{Iterator} interface, we generally do not implement it (not trivial and optional).
         \end{itemize}
     \end{column}
 
@@ -163,19 +170,8 @@ public class MyList<E> {
 \end{frame}
 
 
+\section{Available implementations of ADTs in Java langage}
 
-% \section{Existing implementations of ADTs in Java}
-
-\begin{frame}{Existing implementations of ADTs in Java}
-These slides spend a few minutes on the implementations of the different ADTs seen in the course. They mix "pure" ADTs (without implementation) with ADTs "pre-implemented" by Java.
-It's up to you to know the difference between an ADT and an implementation ;-)
-
-When you see a complexity in red, and you plan to use this method in a data structure, it probably means that you have chosen the wrong data structure.
-
-All methods that are not listed are generally non-standard AND expensive, so they should be avoided. The Javadoc is your friend.
-
-You are not safe from an error in these slides ;-)
-\end{frame}
 
 \begin{frame}
 \frametitle{Arrays (non-dynamic)}
@@ -291,50 +287,7 @@ You are not safe from an error in these slides ;-)
 
 \end{frame}
 
-\begin{frame}
-\frametitle{Sorted list (custom)}
-\centering
-\begin{tabular}{ll}
-	Usefulness & Storage of elements in a sorted manner\\
-	Instantiation & To be implemented by yourself from LinkedList\\
-	& \color{red} In practice, I don't see when this could be useful. \\
-	& \color{red} Only here to be able to compare with what follows.
-	
-\end{tabular}\\
-\vspace{0.5cm}
-\centering
-\begin{tabular}{ll}
-	\multicolumn{2}{c}{\textbf{Methods} on an object \texttt{o} of size $n$} \\
-	\textit{Name} & \textit{Complexity} \\
-	Add to the right place & $\color{red}\mathcal{O}(n)$\\
-    Remove smallest/largest & $\Theta(1)$\\
-    Contains? & $\color{red}\mathcal{O}(n)$\\
-\end{tabular}\\
-\vspace{0.5cm}
-\end{frame}
 
-\begin{frame}
-\frametitle{Sorted array (custom)}
-\centering
-\begin{tabular}{ll}
-	Usefulness & Storage of elements in a sorted manner\\
-	Instantiation & To be implemented by yourself from an ArrayList or a Java array\\
-	& \color{red} In practice, I don't see when this could be useful. \\
-	& \color{red} Only here to be able to compare with what follows.
-	
-\end{tabular}\\
-\vspace{0.5cm}
-\centering
-\begin{tabular}{ll}
-	\multicolumn{2}{c}{\textbf{Methods} on an object \texttt{o} of size $n$} \\
-	\textit{Name} & \textit{Complexity} \\
-	Add to the right place & $\color{red}\mathcal{O}(n)$\\
-	Remove the smallest & $\color{red}\Theta(n)$\\
-	Remove the largest & $\Theta(1)$\\
-	Contains? & $\mathcal{O}(\log n)$ (binary search)\\
-\end{tabular}\\
-\vspace{0.5cm}
-\end{frame}
 
 
 \begin{frame}[t, fragile]
@@ -362,7 +315,7 @@ You are not safe from an error in these slides ;-)
     \begin{column}{0.52\textwidth}
         \textbf{3. Custom Order (Comparators)}
         \textit{Using Lambda expressions:}
-\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue},frame=single]
 // Standard Lambda notation
 list.sort((a, b) -> a.val - b.val);
 
@@ -513,29 +466,7 @@ list.sort(Comparator.comparing(Node::getCategory)
 \color{red} The iterator on PQs does not return the elements in order.
 \end{frame}
 
-\begin{frame}
-\frametitle{Union-find}
-\centering
-\begin{tabular}{ll}
-	Usefulness & Disjoint sets. Merging sets.\\
-	Instantiation & does not exist in java, to be done by yourself!\\
-	& \color{red} Implement the weighted quick union!
-	
-\end{tabular}\\
-\vspace{0.5cm}
-\centering
-\begin{tabular}{lll}
-	\multicolumn{3}{c}{\textbf{Methods} on an object \texttt{o} of size $n$} \\
-	\textit{Name} & \textit{Java} & \textit{Complexity} \\
-	Find & \texttt{o.find(x)} & $\mathcal{O}(\log n)$\\
-	Union & \texttt{o.union(x, y)} & $\mathcal{O}(\log n)$
-\end{tabular}\\
-\vspace{0.5cm}
-
-\color{blue} With path compression, you can go down to $\mathcal{O}(\alpha(n))$ amortized ($\alpha$ being the inverse Ackermann function (see wikipedia ;-)). $\alpha(2^{32}) < 4$).
-\end{frame}
-
-\section{Which ADT/implementation to choose?}
+\section{Which ADT/implementation to choose for your problem?}
 
 \begin{frame}
 \frametitle{Which ADT/implementation to choose?}
@@ -561,9 +492,12 @@ list.sort(Comparator.comparing(Node::getCategory)
 	\item I want to add/remove/get, only at the beginning and at the end $\rightarrow$ \texttt{LinkedList}, \texttt{Queue} or \texttt{Stack} depending on the case
 	\item I have priorities to manage, always the highest priority item first $\rightarrow$ \texttt{PriorityQueue}
 	\item I want to iterate over the content $\rightarrow$ anything except \texttt{Stack, Queue, PQ, UF, ...}
-	\item I want to merge sets $\rightarrow$ UF
 \end{itemize}
 \end{frame}
+
+
+\section{Sorting algorithms ADT relying on comparisons}
+
 
 
 \begin{frame}[fragile]
@@ -587,18 +521,18 @@ list.sort(Comparator.comparing(Node::getCategory)
 
     % --- Column 2: Pseudocode ---
     \begin{column}{0.48\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function binarySearch(A, x, lo, hi)
-    if hi < lo then
-        return -1  // Not found
-    mid = lo + (hi - lo) / 2
-    if A[mid] == x then
-        return mid
-    else if A[mid] > x then
-        return binarySearch(A, x, lo, mid-1)
-    else
-        return binarySearch(A, x, mid+1, hi)
-    \end{lstlisting}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public static int rank(int[] a, int x) {
+    int lo = 0, hi = a.length - 1;
+    while (lo <= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if      (x < a[mid]) hi = mid - 1;
+        else if (x > a[mid]) lo = mid + 1;
+        else return mid;
+    }
+    return -1;
+}
+\end{lstlisting}
     \end{column}
 \end{columns}
 \end{frame}
@@ -622,45 +556,85 @@ function binarySearch(A, x, lo, hi)
 \end{tabular}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Selection sort}
-In an unsorted array:
-\begin{itemize}
-	\item Find the smallest element not yet sorted
-	\item Swap it with the first unsorted element
-	\item Repeat for the rest of the array
-	\item Time complexity $\mathcal{O}(n^2)$
-\end{itemize}
+\begin{frame}[t, fragile]
+\frametitle{Selection Sort}
 
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function selectionSort(a)
-    n = a.length
-    for i from 0 to n-2
-        min = i
-        for j from i+1 to n-1
-            if a[j] < a[min]
-                min = j
-        swap(a[i], a[min])
+\begin{columns}[T]
+    % --- Left Column: Logic & Complexity ---
+    \begin{column}{0.45\textwidth}
+        \textbf{Algorithm Logic}
+        \begin{itemize}
+            \item \textbf{Search:} Find the smallest element in the unsorted portion.
+            \item \textbf{Swap:} Swap it with the first unsorted element.
+            \item \textbf{Invariant:} Items to the left of $i$ are sorted and in their final positions.
+            \item \textbf{Performance:} Always $\mathcal{O}(n^2)$ comparisons, but only $\mathcal{O}(n)$ swaps.
+        \end{itemize}
+    \end{column}
+
+    % --- Right Column: Java Implementation ---
+    \begin{column}{0.55\textwidth}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public static void selectionSort(int[] a) {
+    int n = a.length;
+    for (int i = 0; i < n - 1; i++) {
+        int min = i;
+        // Search for the smallest item
+        for (int j = i + 1; j < n; j++) {
+            if (a[j] < a[min]) {
+                min = j;
+            }
+        }
+        // Swap into correct position
+        int temp = a[i];
+        a[i] = a[min];
+        a[min] = temp;
+    }
+}
 \end{lstlisting}
+    \end{column}
+\end{columns}
+
+
+
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Insertion sort}
-For each element of the unsorted array:
-\begin{itemize}
-    \item Insert it into its correct position within the already sorted part of the array.
-    \item Shift elements greater than the current element one position to the right.
-    \item Time complexity $\mathcal{O}(n^2)$
-\end{itemize}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function insertionSort(a)
-    n = a.length
-    for i from 1 to n-1
-        j = i
-        while j > 0 and a[j] < a[j-1]
-            swap(a[j], a[j-1])
-            j = j - 1
+\begin{frame}[t, fragile]
+\frametitle{Insertion Sort}
+
+\begin{columns}[T]
+    % --- Left Column: Logic & Complexity ---
+    \begin{column}{0.45\textwidth}
+        \textbf{Algorithm Logic}
+        \begin{itemize}
+            \item \textbf{Process:} Pick the next element and "insert" it into the sorted prefix by sliding it left.
+            \item \textbf{Adaptive:} Very fast for \textbf{nearly sorted} data ($O(n)$ best case).
+            \item \textbf{Stable \& In-place:} Maintains relative order and uses $O(1)$ extra space.
+            \item \textbf{Complexity:} $\mathcal{O}(n^2)$ comparisons and swaps in the worst case.
+        \end{itemize}
+    \end{column}
+
+    % --- Right Column: Java Implementation ---
+    \begin{column}{0.55\textwidth}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public static void insertionSort(int[] a) {
+    int n = a.length;
+    for (int i = 1; i < n; i++) {
+        // Slide a[i] into position in a[0..i]
+        for (int j = i; j > 0 && a[j] < a[j-1]; j--) {
+            swap(a, j, j - 1);
+        }
+    }
+}
+
+private static void swap(int[] a, int i, int j) {
+    int temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+}
 \end{lstlisting}
+    \end{column}
+\end{columns}
+
 \end{frame}
 
 \begin{frame}[fragile]
@@ -681,31 +655,34 @@ function insertionSort(a)
     % --- Column 2: Code ---
     \begin{column}{0.58\textwidth}
     % Added basicstyle=\scriptsize to ensure code fits vertically
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function mergeSort(a, aux, lo, hi)
-    if hi <= lo then return
-    mid = lo + (hi - lo) / 2
-    mergeSort(a, aux, lo, mid)
-    mergeSort(a, aux, mid + 1, hi)
-    merge(a, aux, lo, mid, hi)
-function merge(a, aux, lo, mid, hi)
-    for k from lo to hi
-        aux[k] = a[k]
-    i = lo, j = mid + 1
-    for k from lo to hi
-        if i > mid
-            a[k] = aux[j++]
-        else if j > hi
-            a[k] = aux[i++]
-        else if aux[j] < aux[i]
-            a[k] = aux[j++]
-        else
-            a[k] = aux[i++]
-    \end{lstlisting}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public static void mergeSort(int[] a, int[] aux, int lo, int hi) {
+    if (hi <= lo) return;
+    int mid = lo + (hi - lo) / 2;
+    sort(a, aux, lo, mid);       // Sort left half
+    sort(a, aux, mid + 1, hi);   // Sort right half
+    merge(a, aux, lo, mid, hi);  // Merge results
+}
+
+private static void merge(int[] a, int[] aux, int lo, int mid, int hi) {
+    // 1. Copy to aux[]
+    for (int k = lo; k <= hi; k++) {
+        aux[k] = a[k];
+    }
+
+    // 2. Merge back to a[]
+    int i = lo, j = mid + 1;
+    for (int k = lo; k <= hi; k++) {
+        if      (i > mid)         a[k] = aux[j++];
+        else if (j > hi)          a[k] = aux[i++];
+        else if (aux[j] < aux[i]) a[k] = aux[j++];
+        else                      a[k] = aux[i++];
+    }
+}
+\end{lstlisting}
     \end{column}
 
 \end{columns}
-
 \end{frame}
 
 \begin{frame}[fragile]
@@ -713,37 +690,39 @@ function merge(a, aux, lo, mid, hi)
 \begin{columns}[T]
 \begin{column}{0.4\textwidth}
 \begin{itemize}
-    \item Shuffle the array.
     \item Partition the array so that for some `j`
-    \item the entry `a[j]` is in place
+    \item the entry `a[j]` is in place (it won't move any more)
     \item no larger entry to the left of `j`
     \item no smaller entry to the right of `j`
     \item Sort each piece recursively.
-    \item Time complexity: $\mathcal{O}(n\log n)$ average, $\mathcal{O}(n^2)$ worst-case
+    \item $\mathcal{O}(n^2)$ in the worst-case (when the array is sorted) (shuffle the array first to have $\mathcal{O}(n\log n)$ expected)
+    \item We have seen a variant of the quick-sort for computing the median.
 \end{itemize}
 
 \end{column}
 \begin{column}{0.58\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function quickSort(a, lo, hi)
-    if hi <= lo then return
-    j = partition(a, lo, hi)
-    quickSort(a, lo, j-1)
-    quickSort(a, j+1, hi)
-function partition(a, lo, hi)
-    i = lo + 1, j = hi
-    pivot = a[lo]
-    while true
-        while a[i] < pivot
-            i = i + 1
-            if i == hi then break
-        while pivot < a[j]
-            j = j - 1
-            if j == lo then break
-        if i >= j then break
-        swap(a[i], a[j])
-    swap(a[lo], a[j])
-    return j
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public void quickSort(int[] a, int lo, int hi) {
+    if (hi <= lo) return;
+    int j = partition(a, lo, hi);
+    sort(a, lo, j - 1);
+    sort(a, j + 1, hi);
+}
+
+private int partition(int[] a, int lo, int hi) {
+    int i = lo, j = hi + 1;
+    int v = a[lo]; // Pivot element
+    while (true) {
+        while (a[++i] < v) 
+            if (i == hi) break;
+        while (v < a[--j]) 
+            if (j == lo) break;
+        if (i >= j) break;
+        swap(a, i, j);
+    }
+    swap(a, lo, j); // Put pivot at j
+    return j;
+}
 \end{lstlisting}
 \end{column}
 \end{columns}
@@ -780,26 +759,79 @@ function partition(a, lo, hi)
 
     % --- Column 2: O(n) Heapify ---
     \begin{column}{0.5\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function heapify(a, N)
-    // Start from the last parent node
-    // and work upwards to the root.
-    // This phase is O(n).
-    for k from N/2 down to 1
-        sink(a, k, N)
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public static void heapSort(Comparable[] a) {
+    int N = a.length;
+    // Phase 1: Heapify = Build a valid heap
+    for (int k = N/2; k >= 1; k--) {
+        sink(a, k, N);
+    }
+    // Phase 2: Sortdown
+    while (N > 1) {
+        exch(a, 1, N--);
+        sink(a, 1, N);
+    }
+}
 
-function sink(a, k, N)
-    while 2*k <= N
-        j = 2*k
-        // Choose the smaller child
-        if j < N and a[j] > a[j+1]
-            j = j + 1
-        if a[k] <= a[j] then break
-        swap(a[k], a[j])
-        k = j
+private static void sink(Comparable[] a, int k, int N) {
+    while (2 * k <= N) {
+        int j = 2 * k; // Left child
+        if (j < N && less(a, j, j + 1)) j++;
+        if (!less(a, k, j)) break;
+        exch(a, k, j);
+        k = j;
+    }
+}
+\end{lstlisting}
+    \end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Binary heaps (Priority Queues)}
+\begin{columns}[T]
+    % --- Column 1: Theory ---
+    \begin{column}{0.48\textwidth}
+        \begin{itemize}
+            \item Complete binary tree (except possibly the last layer, filled from left).
+            \item \textbf{Property:} Children of a node are larger or equal than it (min-heap). 
+            \item \textbf{Array Impl:} Node $i$ has children at $2i$ and $2i+1$. (1-based indexing).
+            \item \textbf{Insertions:} Add to end. Swim up (exchange with parent) until property holds.
+            \item \textbf{Min Deletion:} Replace root with end element. Sink down.
+            \item Complexity: $\mathcal{O}(\log n)$ min deletion and insertions, $\mathcal{O}(1)$ to just retreive the min.
+        \end{itemize}
+        \vspace{1em}
+    \end{column}
+
+    % --- Column 2: Pseudocode ---
+    \begin{column}{0.48\textwidth}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public void insert(Key x) {
+    pq[++N] = x;
+    swim(N);
+}
+
+private void swim(int k) {
+    while (k > 1 && greater(k/2, k)) {
+        exch(k, k/2);
+        k = k/2;
+    }
+}
     \end{lstlisting}
     \end{column}
 \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Min-max heap}
+\begin{itemize}
+	\item Variant of the binary heap, which maintains both the minimum and the maximum and allows them to be removed in $\mathcal{O}(\log n)$
+	\item Property: on the "even" layers (level 0 (root), 2, 4, ...) the min-heap property applies (all nodes below are larger). For odd layers, it is the max-heap property.
+	\item Necessarily, the minimum is the root, and the maximum is the maximum of the first two children.
+	\item The rules for swim/sink of the values must be adapted (a sheet of paper and a small drawing should be enough to find the rule, a little too long to put in this slide).
+\end{itemize}
+$\mathcal{O}(\log n)$ for everything, $\mathcal{O}(1)$ to see the smallest/largest element.
 \end{frame}
 
 \begin{frame}[t, fragile]
@@ -830,7 +862,7 @@ function sink(a, k, N)
             \item \textbf{LSD (Least Significant Digit):} Sort strings from right-to-left. 
             \item \textbf{Stability is Mandatory:} Counting sort is stable, so a sort on digit $i$ doesn't break the order from digit $i+1$.
         \end{itemize}
-        \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single, title=LSD String Sort]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single,title=LSD String Sort]
 for (int d = W-1; d >= 0; d--) {
     int[] count = new int[R + 1];
     // 1. Count frequencies of char at d
@@ -851,51 +883,6 @@ for (int d = W-1; d >= 0; d--) {
 \end{frame}
 
 
-\begin{frame}[fragile]
-\frametitle{Binary heaps}
-\begin{columns}[T]
-    % --- Column 1: Theory ---
-    \begin{column}{0.48\textwidth}
-        \begin{itemize}
-            \item Complete binary tree (except possibly the last layer, filled from left).
-            \item \textbf{Property:} Children of a node are larger than it (min-heap).
-            \item \textbf{Array Impl:} Node $i$ has children at $2i$ and $2i+1$. (1-based indexing).
-            \item \textbf{Insertions:} Add to end. Swim up (exchange with parent) until property holds.
-            \item \textbf{Min Deletion:} Replace root with end element. Sink down.
-            \item Complexity: $\mathcal{O}(\log n)$ min deletion and insertions, $\mathcal{O}(1)$ to just retreive the min.
-        \end{itemize}
-        \vspace{1em}
-    \end{column}
-
-    % --- Column 2: Pseudocode ---
-    \begin{column}{0.48\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function insert(x)
-    N = N + 1
-    pq[N] = x
-    swim(N)
-
-function swim(k)
-    // While not root and 
-    // parent is larger than child
-    while k > 1 and pq[k/2] > pq[k]
-        swap(pq[k], pq[k/2])
-        k = k / 2
-    \end{lstlisting}
-    \end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}
-\frametitle{Min-max heap}
-\begin{itemize}
-	\item Variant of the binary heap, which maintains both the minimum and the maximum and allows them to be removed in $\mathcal{O}(\log n)$
-	\item Property: on the "even" layers (level 0 (root), 2, 4, ...) the min-heap property applies (all nodes below are larger). For odd layers, it is the max-heap property.
-	\item Necessarily, the minimum is the root, and the maximum is the maximum of the first two children.
-	\item The rules for swim/sink of the values must be adapted (a sheet of paper and a small drawing should be enough to find the rule, a little too long to put in this slide).
-\end{itemize}
-$\mathcal{O}(\log n)$ for everything, $\mathcal{O}(1)$ to see the smallest/largest element.
-\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Binary Search Trees (BST)}
@@ -1024,59 +1011,11 @@ Everything is in $\mathcal{O}(\log n)$ as a result.
 \end{frame}
 
 
+\section{Hash and Maps}
 
 
 \begin{frame}[fragile]
-\frametitle{Hash tables (Separate Chaining)}
-
-\begin{columns}[T]
-    % --- Column 1: Theory ---
-    \begin{column}{0.45\textwidth}
-        \begin{itemize}
-            \item \textbf{Principle:} Hash the object key to find an index. Put the (key, value) pair into a bucket at that index.
-            \item \textbf{Separate Chaining:} Each bucket `table[i]` points to a linked list of key-value pairs that hashed to the same index `i`.
-            \item \textbf{Performance depends on:}
-            \begin{itemize}
-                \item Quality of hash function.
-                \item Load factor ($N/M$).
-            \end{itemize}
-        \end{itemize}
-        \vspace{1em}
-        If load factor is kept low (by resizing), operations are $\mathcal{O}(1)$ \textbf{amortized}.
-    \end{column}
-
-    % --- Column 2: Pseudocode ---
-    \begin{column}{0.52\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-// M = current table size
-// N = number of items stored
-function insert(key, val)
-    // 1. Resize if load factor is too high
-    // (e.g., average chain length >= 1)
-    if N >= M then
-        resize(2 * M) // Rehashes everything
-
-    // 2. Compute index
-    i = hash(key) % M
-
-    // 3. Search chain for existing key to update
-    for node = table[i]; node != null; node = node.next
-        if node.key == key
-            node.val = val // Update found
-            return
-
-    // 4. Key not found, prepend new node to chain
-    oldHead = table[i]
-    table[i] = new Node(key, val, next=oldHead)
-    N = N + 1
-    \end{lstlisting}
-    \end{column}
-\end{columns}
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Hash tables (Separate Chaining)}
+\frametitle{Hash tables - Separate Chaining}
 
 \begin{columns}[T]
     % --- Column 1: Theory ---
@@ -1086,8 +1025,8 @@ function insert(key, val)
             \item \textbf{Separate Chaining:} Buckets are linked lists handling collisions.
             \item \textbf{Dynamic Resizing:} 
             \begin{itemize}
-                \item When $N/M$ gets too high, we increase $M$.
-                \item \textbf{Rehashing:} Every item must be re-processed because indices change ($hash \pmod M$).
+                \item When $n/m$ gets too high, we increase $m$.
+                \item \textbf{Rehashing:} Every item must be re-processed because indices change ($hash \pmod m$).
             \end{itemize}
         \end{itemize}
         \vspace{1em}
@@ -1096,29 +1035,35 @@ function insert(key, val)
 
     % --- Column 2: Pseudocode ---
     \begin{column}{0.55\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function insert(key, val)
-    if N >= M then resize(2 * M)
-    i = hash(key) % M
-    for node = table[i]; node != null; node = node.next
-        if node.key == key
-            node.val = val; return
-            
-    table[i] = new Node(key, val, next=table[i])
-    N = N + 1
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public void put(Key key, Value val) {
+    if (n >= m) resize(2 * m);
 
-function resize(newM)
-    newTable = new Array[newM]
-    for i = 0 to M - 1
-        for node = table[i]; node != null; node = node.next
-            // Recompute index for new table size
-            newIdx = hash(node.key) % newM
+    int i = hash(key);
+    for (Node x = st[i]; x != null; x = x.next) {
+        if (key.equals(x.key)) {
+            x.val = val;
+            return;
+        }
+    }
+    // Prepend to chain
+    st[i] = new Node(key, val, st[i]);
+    n++;
+}
+private void resize(int newM) {
+    Node[] temp = new Node[newM];
+    for (int i = 0; i < m; i++) {
+        for (Node x = st[i]; x != null; x = x.next) {
+            // Recompute index for new M
+            int idx = (x.key.hashCode() & 0x7fffffff) % newM;
             // Prepend to new chain
-            newTable[newIdx] = new Node(node.key, 
-                               node.val, next=newTable[newIdx])
-    table = newTable
-    M = newM
-    \end{lstlisting}
+            temp[idx] = new Node(x.key, x.val, temp[idx]);
+        }
+    }
+    this.st = temp;
+    this.m = newM;
+}
+\end{lstlisting}
     \end{column}
 \end{columns}
 \end{frame}
@@ -1144,30 +1089,35 @@ function resize(newM)
 
     % --- Column 2: Pseudocode ---
     \begin{column}{0.52\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-// M = table size, keys[] and vals[] arrays
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public class LinearProbingHashST<Key, Value> {
+    private int n;           // number of key-value pairs
+    private int m = 16;      // size of linear probing table
+    private Key[] keys;      // the keys
+    private Value[] vals;    // the values
 
-function put(key, val)
-    i = hash(key)
-    // Stop at null (empty) or existing key
-    while keys[i] != null
-        if keys[i] == key
-            vals[i] = val // Update
-            return
-        i = (i + 1) % M // Wrap around
-    
-    // Found empty slot
-    keys[i] = key
-    vals[i] = val
-    N = N + 1
+    public void put(Key key, Value val) {
+        if (n >= m/2) resize(2*m);
 
-function get(key)
-    i = hash(key)
-    while keys[i] != null
-        if keys[i] == key
-            return vals[i]
-        i = (i + 1) % M
-    return null // Not found
+        int i;
+        for (i = hash(key); keys[i] != null; i = (i + 1) % m) {
+            if (keys[i].equals(key)) {
+                vals[i] = val; // Update existing key
+                return;
+            }
+        }
+        keys[i] = key;
+        vals[i] = val;
+        n++;
+    }
+
+    public Value get(Key key) {
+        for (int i = hash(key); keys[i] != null; i = (i+1)%m) {
+            if (keys[i].equals(key)) return vals[i];
+        }
+        return null;
+    }
+}
     \end{lstlisting}
     \end{column}
 \end{columns}
@@ -1177,12 +1127,11 @@ function get(key)
 
 \begin{frame}[fragile]
 \frametitle{LRU Cache Implementation}
-
 \begin{columns}[T]
     % --- Column 1: The Concept ---
     \begin{column}{0.45\textwidth}
+    	    An LRU (Least Recently Used) Cache is a HashMap with a fixed capacity that tracks access order using a doubly linked list. Every time an entry is accessed (get/put), it is moved to the front (Most Recently Used). If an insertion exceeds capacity, the tail (Least Recently Used) entry is evicted. \\
         \textbf{Goal:} $\mathcal{O}(1)$ for both `get` and `put`.
-        
         \vspace{0.5em}
         We combine two data structures:
         \begin{itemize}
@@ -1202,35 +1151,37 @@ function get(key)
 
     % --- Column 2: Pseudocode ---
     \begin{column}{0.52\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-class Node { key, val, prev, next }
-Map<Key, Node> map
-Node head, tail // Dummy sentinels
-
-function get(key)
-    if key not in map then return null
-    node = map[key]
-    // Move to front (MRU position)
-    removeNode(node)
-    addToHead(node)
-    return node.val
-
-function put(key, val)
-    if key in map
-        node = map[key]
-        node.val = val
-        // Update usage: move to front
-        removeNode(node)
-        addToHead(node)
-    else
-        newNode = new Node(key, val)
-        map[key] = newNode
-        addToHead(newNode)
-        if map.size() > capacity
-            // Evict LRU (item before tail)
-            lru = tail.prev
-            removeNode(lru)
-            map.remove(lru.key)
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public class LRUCache<K, V> {
+    private class Node { K key; V val; Node prev, next;}
+    private Map<K, Node> map = new HashMap<>();
+    private Node head, tail; // Sentinels
+    private int capacity;
+    public V get(K key) {
+        Node node = map.get(key);
+        if (node == null) return null;
+        remove(node); // Move to front (MRU)
+        addFirst(node); // Not shown, easy
+        return node.val;
+    }
+    public void put(K key, V val) {
+        Node node = map.get(key);
+        if (node != null) {
+            node.val = val;
+            remove(node); // Not shown, easy
+        } else {
+            node = new Node();
+            node.key = key; node.val = val;
+            map.put(key, node);
+            if (map.size() > capacity) {
+                Node lru = tail.prev;
+                remove(lru);
+                map.remove(lru.key);
+            }
+        }
+        addFirst(node); // Still easy
+    }
+}
 \end{lstlisting}
     \end{column}
 \end{columns}
@@ -1238,6 +1189,7 @@ function put(key, val)
 \end{frame}
 
 
+\section{String Algorithms}
 
 
 \begin{frame}[fragile]
@@ -1245,7 +1197,7 @@ function put(key, val)
 
 \begin{columns}[T]
     % --- Column 1: Theory & Math ---
-    \begin{column}{0.48\textwidth}
+    \begin{column}{0.40\textwidth}
         \textbf{Goal:} efficient search for fixed-length ($M$) patterns in a text.
         \begin{itemize}
             \item \textbf{Preprocessing:} Hash all patterns and store in a \texttt{Map<Long, String>}.
@@ -1257,7 +1209,7 @@ function put(key, val)
         \textbf{The Math (Polynomial Hash):}
         $$ H_i = \sum_{j=0}^{M-1} x_{i+j} R^{M-1-j} $$
         
-        \textbf{Rolling Update:} To move window $i \to i+1$:
+        \textbf{Rolling:} To move window $i \to i+1$:
         \begin{enumerate}
             \item Remove leading char $x_i$ ($x_i R^{M-1}$).
             \item Shift left (multiply by $R$).
@@ -1267,34 +1219,37 @@ function put(key, val)
     \end{column}
 
     % --- Column 2: Pseudocode ---
-    \begin{column}{0.48\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function rabinKarp(txt, patterns, M)
-    map = new HashMap()
-    RM = pow(R, M-1) // Precompute multiplier
-    
-    // 1. Preprocess patterns
-    for p in patterns
-        map.put(hash(p), p)
+    \begin{column}{0.55\textwidth}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public int rabinKarpSearch(String txt, Set<String> patterns, int M) {
+    int N = txt.length();
+    long Q = 997; // Large prime for modulo
+    int R = 256;  // Alphabet size
+    long RM = 1;  // R^(M-1) % Q
+    Map<Long, String> hashes = new HashMap<>();
 
-    // 2. Compute hash of first window
-    h = hash(txt[0...M-1])
+    for (int i = 1; i <= M - 1; i++) RM = (R * RM) % Q;
+
+    // 1. Preprocess patterns
+    for (String p : patterns) hashes.put(hash(p, M, Q), p);
+
+    // 2. Initial hash for first window
+    long h = hash(txt.substring(0, M), M, Q);
 
     // 3. Roll through text
-    for i from 0 to N - M
-        // Check for match
-        if map.contains(h)
-            // Handle Collisions
-            if txt[i...i+M-1] == map.get(h)
-                return i // Match found
-
-        // Roll hash (avoid loop!)
-        if i < N - M
-            // Remove leading, shift, add trailing
-            h = (h - txt[i] * RM) * R + txt[i+M]
-            // (Apply modulo Q here in practice)
-            
-    return -1
+    for (int i = 0; i <= N - M; i++) {
+        if (hashes.containsKey(h)) {
+            if (txt.substring(i, i + M).equals(hashes.get(h)))
+                return i; // Match found
+        }
+        // Roll to next window
+        if (i < N - M) {
+            h = (h + Q - txt.charAt(i) * RM % Q) % Q;
+            h = (h * R + txt.charAt(i + M)) % Q;
+        }
+    }
+    return -1;
+}
     \end{lstlisting}
     \end{column}
 \end{columns}
@@ -1321,82 +1276,42 @@ function rabinKarp(txt, patterns, M)
 
     % --- Column 2: Pseudocode ---
     \begin{column}{0.58\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function buildHuffmanTree(frequencies)
-    PQ = new MinPriorityQueue()
-    
-    // Create leaf node for each char
-    for char, count in frequencies
-        node = new Node(char, count)
-        PQ.insert(node)
-
-    // Merge nodes until one remains
-    while PQ.size() > 1
-        x = PQ.extractMin()
-        y = PQ.extractMin()
-        
-        sum = x.freq + y.freq
-        // Create new internal node
-        z = new Node(sum, left=x, right=y)
-   
-        PQ.insert(z)
-
-    return PQ.extractMin() // The root
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public Node buildTree(int[] freq) {
+    PriorityQueue<Node> pq = new PriorityQueue<>();
+    for (char c = 0; c < 256; c++) { // Creat a leaf nodes for each character
+        if (freq[c] > 0)
+            pq.add(new Node(c, freq[c], null, null));
+    }    
+    while (pq.size() > 1) { // Merge smallest nodes until unique tree
+        Node left  = pq.poll();
+        Node right = pq.poll();
+        // Create internal node (char '\0' or similar)
+        Node parent = new Node('\0', left.freq + right.freq, 
+                               left, right);
+        pq.add(parent);
+    }
+    return pq.poll();
+}
+private static class Node implements Comparable<Node> {
+    private final char ch;
+    private final int freq;
+    private final Node left, right;
+    Node(char ch, int freq, Node left, Node right) {
+        this.ch = ch; this.freq = freq;
+        this.left = left; this.right = right;
+    }
+    public int compareTo(Node that) {
+        return this.freq - that.freq;
+    }
+}
     \end{lstlisting}
     \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Union-Find (Weighted Quick-Union)}
+\section{Graph Algorithms}
 
-\begin{columns}[T]
-    % --- Column 1: Concepts & Strategy ---
-    \begin{column}{0.48\textwidth}
-        \textbf{Concept:} Maintain disjoint sets as trees using an array `parent`.
-        \begin{itemize}
-            \item \textbf{Representative:} The root of the tree (`parent[i] == i`).
-            \item \textbf{Weighted Union:} Always link the \textit{smaller} tree to the \textit{larger} tree (maintains balance).
-            \item \textbf{Path Compression:} During `find`, make nodes point directly to the root.
-        \end{itemize}
-        
-        \vspace{1em}
-        \textbf{Complexity:} \\
-        $\mathcal{O}(\log n)$ with weighted union. \\
-        $\mathcal{O}(\alpha(n))$ with weighted union + path compression.
-    \end{column}
-
-    % --- Column 2: Implementation ---
-    \begin{column}{0.48\textwidth}
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-int[] parent, size
-
-function find(i)
-    if parent[i] == i then return i
-    
-    // Path Compression:
-    // Point i directly to the root
-    parent[i] = find(parent[i])
-    
-    return parent[i]
-
-function union(p, q)
-    rootP = find(p)
-    rootQ = find(q)
-    if rootP == rootQ return
-
-    // Weighted: small to large
-    if size[rootP] < size[rootQ]
-        parent[rootP] = rootQ
-        size[rootQ] += size[rootP]
-    else
-        parent[rootQ] = rootP
-        size[rootP] += size[rootQ]
-    \end{lstlisting}
-    \end{column}
-\end{columns}
-
-\end{frame}
 
 \begin{frame}
 \frametitle{A quick reminder about graphs}
@@ -1489,14 +1404,14 @@ void addEdge(u, v) { adj[u].add(v); }
 
     % --- Right Column: Pseudocode ---
     \begin{column}{0.52\textwidth}
-\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, title=BFS(Graph G\, Source s)]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
 Queue q = new Queue();
 boolean[] visited = new boolean[G.V()];
 int[] dist = new int[G.V()];
 int[] prev = new int[G.V()]; // Path tree
 
 visited[s] = true;
-q.enqueue(s);
+q.enqueue(s); // if you have multiple sources, add them here
 
 while (!q.isEmpty()) {
     int u = q.dequeue();
@@ -1538,7 +1453,7 @@ while (!q.isEmpty()) {
 
     % --- Right Column: Pseudocode ---
     \begin{column}{0.52\textwidth}
-\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, title=DFS(Graph G\, Source s)]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single, title=DFS(Graph G\, Source s)]
 boolean[] visited = new boolean[G.V()];
 int[] prev = new int[G.V()];
 search(G, s) // Initial call
@@ -1560,50 +1475,6 @@ void search(Graph G, int u) {
 
 
 \begin{frame}[t, fragile]
-\frametitle{Depth-First Search (DFS)}
-
-\begin{columns}[T]
-    % --- Left Column: Logic & Properties ---
-    \begin{column}{0.48\textwidth}
-        \begin{itemize}
-            \item \textbf{Deep Dive:} Explores as far as possible along each branch before backtracking.
-            \item \textbf{Path Finding:} Finds \textit{a} path from $s$ to $v$, but it is \textbf{not necessarily the shortest}.
-            \item \textbf{Discovery State:}
-            \begin{itemize}
-                \item \texttt{visited[v]}: Keeps track of nodes already explored.
-                \item \texttt{prev[v]}: Encodes the path tree (the "parent" node in the recursion).
-            \end{itemize}
-            \item \textbf{Mechanism:} Uses the call stack (Recursion) or an explicit \textbf{Stack} (LIFO).
-            \item \textbf{Complexity:} $\mathcal{O}(V+E)$.
-            \item Can be used for directed or undirected graph.
-        \end{itemize}
-    \end{column}
-
-    % --- Right Column: Pseudocode ---
-    \begin{column}{0.52\textwidth}
-\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, title=DFS(Graph G\, Source s)]
-boolean[] visited = new boolean[G.V()];
-int[] prev = new int[G.V()];
-
-void search(Graph G, int u) {
-    visited[u] = true;
-    for (int v : G.adj(u)) {
-        if (!visited[v]) {
-            prev[v] = u; // Record discovery
-            search(G, v); // Recursive dive
-        }
-    }
-}
-
-// Initial call: search(G, s)
-\end{lstlisting}
-    \end{column}
-\end{columns}
-\end{frame}
-
-
-
-\begin{frame}[t, fragile]
 \frametitle{DFS Applications in $\mathcal{O}(V+E)$}
 \begin{columns}[T]
     % --- Left Column: Cycle Detection ---
@@ -1615,7 +1486,7 @@ void search(Graph G, int u) {
                     \item \textbf{1 (Open):} Node is on the \textbf{current} recursion stack.
                     \item \textbf{2 (Closed):} Node \& all descendants visited.
         \end{itemize}
-        \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
 int[] state; // 0: UNSEEN, 1: OPEN, 2: CLOSED
 public boolean hasCycle() {
     state = new int[V]; 
@@ -1645,7 +1516,7 @@ bool hasCycle(int u) {
             \item \textbf{Logic:} Assign alternate colors (0 and 1).
             \item \textbf{Conflict:} A neighbor already has the \textbf{same} color as current node $\rightarrow$ not bipartite.
         \end{itemize}
-        \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
 int[] color; // -1: NONE, 0: RED, 1: BLUE
 public boolean isBipartite() {
     color = new int[V];
@@ -1694,7 +1565,7 @@ bool isBipartite(int u, int c) {
 
     % --- Right Column: Pseudocode ---
     \begin{column}{0.55\textwidth}
-\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
 // 1. Calculate in-degree for all nodes
 int[] inDegree = new int[V];
 for (int u = 0; u < V; u++)
@@ -1720,10 +1591,69 @@ while (!q.isEmpty()) {
 \end{columns}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Union-Find (Weighted Quick-Union)}
+\begin{columns}[T]
+    % --- Column 1: Concepts & Strategy ---
+    \begin{column}{0.48\textwidth}
+    	Useful data-strcuture to compute connected components in undiracted graph in $\mathcal{O}(E)$. \\
+        \textbf{Idea:} Maintain disjoint sets as trees using an array `parent`.
+        \begin{itemize}
+            \item \textbf{Representative:} The root of the tree (`parent[i] == i`).
+            \item \textbf{Weighted Union:} Always link the \textit{smaller} tree to the \textit{larger} tree (maintains balance).
+            \item \textbf{Path Compression:} During `find`, make nodes point directly to the root.
+        \end{itemize}
+        
+        \vspace{1em}
+        \textbf{Complexity:} \\
+        $\mathcal{O}(\log n)$ with weighted union per op. \\
+        $\mathcal{O}(\alpha(n))$ per op. with weighted union + path compression ($~\mathcal{O}(1)$ practice).
+    \end{column}
+
+    % --- Column 2: Implementation ---
+    \begin{column}{0.48\textwidth}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single]
+public class UF {
+    private int[] parent; // parent[i] = parent of i
+    private int[] size;   // size[i] = #nodes in subtree
+    private int count;    // number of components
+    public UF(int n) {
+        count = n;
+        parent = new int[n];
+        size = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            size[i] = 1;
+        }
+    }
+    public int find(int i) {
+        if (parent[i] == i) return i;
+        return parent[i] = find(parent[i]); // Compression
+    }
+    public void union(int p, int q) {
+        int rootP = find(p);
+        int rootQ = find(q);
+        if (rootP == rootQ) return;
+        if (size[rootP] < size[rootQ]) { // Weithed
+            parent[rootP] = rootQ;
+            size[rootQ] += size[rootP];
+        } else {
+            parent[rootQ] = rootP;
+            size[rootP] += size[rootQ];
+        }
+        count--;
+    }
+}
+    \end{lstlisting}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
 
 
 \begin{frame}[t, fragile]
-\frametitle{Minimum Spanning Tree Algorithms: Prim vs. Kruskal}
+\frametitle{Minimum Spanning Tree: Prim \& Kruskal Algorithms}
 \begin{block}{Definitions}
     \begin{itemize}
         \item \textbf{Spanning Tree:} Connected acyclic graph ($n$ nodes $\Rightarrow n-1$ edges).
@@ -1739,7 +1669,7 @@ while (!q.isEmpty()) {
             \item Start from an arbitrary node.
             \item Always pick the cheapest edge connecting the tree to a \textit{new} node.
         \end{itemize}
-        \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single, title=Prim(G)]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single, title=Prim(G)]
 PriorityQueue pq;
 pq.addEdges(startNode);
 while (!pq.isEmpty()) {
@@ -1761,7 +1691,7 @@ while (!pq.isEmpty()) {
             \item Sort all edges by weight.
             \item Pick the cheapest edge that doesn't create a cycle (using \textbf{Union-Find}).
         \end{itemize}
-        \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single, title=Kruskal(G)]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single, title=Kruskal(G)]
 sort edges by weight;
 UnionFind uf = new UF(V);
 for (Edge e : edges) {
@@ -1798,13 +1728,14 @@ for (Edge e : edges) {
 
     % --- Right Column: Pseudocode ---
     \begin{column}{0.55\textwidth}
-\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, title=Dijkstra(Graph G\, s)]
+
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, keywordstyle=\color{blue}, frame=single,title=Dijkstra(Graph G\, s)]
 dist[] = new int[V]; // Init with infinity
 prev[] = new int[V]; 
 PriorityQueue<Node> pq = new PriorityQueue<>();
 
 dist[s] = 0;
-pq.add(new Node(s, 0));
+pq.add(new Node(s, 0)); // if you have multiple sources, add them here
 
 while (!pq.isEmpty()) {
     Node current = pq.poll();
@@ -1829,7 +1760,7 @@ while (!pq.isEmpty()) {
 \end{frame}
 
 \begin{frame}[t, fragile]
-\frametitle{Bellman-Ford Algorithm}
+\frametitle{Shortest-Path: Bellman-Ford Algorithm}
 
 \begin{columns}[T]
     % --- Left Column: Concept ---
@@ -1845,7 +1776,7 @@ while (!pq.isEmpty()) {
 
     % --- Right Column: Java-like Implementation ---
     \begin{column}{0.52\textwidth}
-\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, title=BellmanFord(List<Edge> edges\, int s)]
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, keywordstyle=\color{blue}, title=BellmanFord(List<Edge> edges\, int s)]
 double[] dist = new double[V];
 Arrays.fill(dist, Double.POSITIVE_INFINITY);
 dist[s] = 0.0;
@@ -1872,23 +1803,51 @@ return dist;
 \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Floyd-Warshall}
-\begin{itemize}
-	\item Calculation of all the shortest path distances between all pairs of nodes, in a \textbf{weighted} directed graph of $V$ nodes. You get the distances at the end, but not the paths.
-	\item Proof by induction on $k$: $d[i][j]$ is the distance of the shortest path using only detours in $\{1..k-1\}$.
-\end{itemize}
+\begin{frame}[t, fragile]
+\frametitle{All-Pairs Shortest Paths: Floyd-Warshall Algorithm}
 
-    \begin{lstlisting}[basicstyle=\tiny\ttfamily, frame=single]
-function Floyd_Warshall(G)
-    d[i][j] = (i,j) in E ? weight(i,j), (+inf) otherwise
-    for k from 1 to V-1 do
-        for i from 1 to V-1 do
-            for j from 1 to V-1 do
-                d[i][j] = min(d[i][j],d[i][k]+d[k][j])
-    return d
+\begin{columns}[T]
+    % --- Column 1: Concepts ---
+    \begin{column}{0.4\textwidth}
+        \begin{itemize}
+            \item \textbf{Purpose:} Computes shortest distances between \textbf{all pairs} of nodes in a weighted directed graph.
+            \item \textbf{Dynamic Programming:} $d[i][j]$ is the shortest path from $i$ to $j$ using only intermediate nodes from $\{0 \dots k\}$.
+            \item \textbf{Complexity:} $\mathcal{O}(V^3)$ time and $\mathcal{O}(V^2)$ space.
+            \item \textbf{Note:} Can handle negative edge weights, but not negative cycles.
+        \end{itemize}
+    \end{column}
+
+    % --- Column 2: Implementation ---
+    \begin{column}{0.6\textwidth}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, keywordstyle=\color{blue}]
+public double[][] floydWarshall(double[][] adj, int V) {
+    double[][] dist = new double[V][V];
+    
+    // 1. Initialize distance matrix
+    for (int i = 0; i < V; i++) {
+        for (int j = 0; j < V; j++) {
+            dist[i][j] = adj[i][j];
+        }
+    }
+
+    // 2. Main DP loop
+    for (int k = 0; k < V; k++) {
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                }
+            }
+        }
+    }
+    return dist;
+}
 \end{lstlisting}
-$\mathcal{O}(V^3)$
+    \end{column}
+\end{columns}
+
+
+
 \end{frame}
 
 
@@ -1906,25 +1865,23 @@ $\mathcal{O}(V^3)$
 
 \begin{frame}[fragile]
 \frametitle{Iterating over collections}
-{\color{red} I NEVER want to see this:}
-\begin{lstlisting}
+{\color{red} Don't do this (because it takes $\mathcal{O}(n^2)) ...$:}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, keywordstyle=\color{blue}]
 List<String> x = ...;
 for(int i = 0; i < x.size(); i++) {
 	String elem = x.get(i);
 	//...
 }
 \end{lstlisting}
-{\color{red} This is $\mathcal{O}(n^2)$!}
 
-{\color{blue} Please use foreach:}
-\begin{lstlisting}
+{\color{blue} ... use foreach instead:}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, keywordstyle=\color{blue}]
 for(String elem: x) {
 	//...
 }
 \end{lstlisting}
-
-{\color{blue} Or an iterator:}
-\begin{lstlisting}
+{\color{blue} or an iterator:}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, keywordstyle=\color{blue}]
 Iterator<String> itr = x.iterator();
 while(itr.hasNext()) {
 	String elem = itr.next();
@@ -1936,7 +1893,7 @@ while(itr.hasNext()) {
 \begin{frame}[fragile]
 \frametitle{Iterating over collections (2)}
 For dictionaries (\texttt{HashMap}, \texttt{TreeMap}), three reasonable possibilities:
-\begin{lstlisting}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, keywordstyle=\color{blue}]
 HashMap<X, Y> hashmap = ...;
 for(Map.Entry<X, Y> pair: hashmap.entrySet()) {
 	X key = pair.getKey();
@@ -1945,7 +1902,7 @@ for(Map.Entry<X, Y> pair: hashmap.entrySet()) {
 }
 \end{lstlisting}
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Java, basicstyle=\tiny\ttfamily, frame=single, keywordstyle=\color{blue}]
 for(X key: hashmap.keySet()) {
 	Y value = hashmap.get(key);
 	// ...
